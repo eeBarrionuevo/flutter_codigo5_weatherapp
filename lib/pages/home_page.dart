@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
             ),
             Image.asset(
               'assets/images/dom.png',
-              height: height * 0.16,
+              height: height * 0.11,
             ),
             const SizedBox(
               height: 22.0,
@@ -90,8 +90,36 @@ class HomePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12.0),
                   borderSide: BorderSide.none,
                 ),
-                suffixIcon: Icon(Icons.search,),
+                suffixIcon: Icon(
+                  Icons.search,
+                ),
               ),
+            ),
+            Row(
+              children: [
+                Container(
+                  child: Column(
+                    children: [
+                      Text(
+                        "9:00 AM",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      Image.asset(
+                        'assets/images/cloud.png',
+                        height: 34.0,
+                      ),
+                      Text(
+                        "29°",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
