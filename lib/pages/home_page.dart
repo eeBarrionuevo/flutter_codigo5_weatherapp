@@ -97,7 +97,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 20.0,
+              height: 24.0,
             ),
             SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
@@ -110,6 +110,37 @@ class HomePage extends StatelessWidget {
                   ItemForecastWidget(),
                   ItemForecastWidget(),
                   ItemForecastWidget(),
+                ],
+              ),
+            ),
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 14.0, vertical: 20.0),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.09),
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "15 minutes ago",
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13.0
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 6.0,
+                  ),
+                  Text(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    maxLines: 2,
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ],
               ),
             ),
