@@ -24,49 +24,77 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: height * 0.03,
-          ),
-          Image.asset(
-            'assets/images/dom.png',
-            height: height * 0.16,
-          ),
-          const SizedBox(
-            height: 16.0,
-          ),
-          Text(
-            "Cloudy",
-            style: TextStyle(
-              color: Colors.white,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14.0),
+        child: Column(
+          children: [
+            SizedBox(
+              height: height * 0.03,
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "24",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: height * 0.08,
-                  fontWeight: FontWeight.w600,
+            Image.asset(
+              'assets/images/dom.png',
+              height: height * 0.16,
+            ),
+            const SizedBox(
+              height: 22.0,
+            ),
+            Text(
+              "Cloudy",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "24",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: height * 0.08,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                width: 6.0,
-              ),
-              const Text(
-                "°C",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w600,
+                const SizedBox(
+                  width: 6.0,
                 ),
+                const Text(
+                  "°C",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+            Text(
+              "Arequipa, PE",
+              style: TextStyle(
+                color: Colors.white70,
               ),
-            ],
-          ),
-        ],
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "Enter city name",
+                filled: true,
+                fillColor: Colors.white,
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                  borderSide: BorderSide.none,
+                ),
+                suffixIcon: Icon(Icons.search,),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
