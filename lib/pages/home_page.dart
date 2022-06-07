@@ -2,13 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_codigo5_weatherapp/ui/general/colors.dart';
 import 'package:flutter_codigo5_weatherapp/ui/widgets/item_forecast_widget.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  @override
+  initState(){
+    super.initState();
+
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: kBrandPrimaryColor,
       appBar: AppBar(
