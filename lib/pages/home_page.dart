@@ -6,6 +6,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: kBrandPrimaryColor,
       appBar: AppBar(
@@ -23,7 +26,20 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: Column(
-        children: [],
+        children: [
+          Image.asset(
+            'assets/images/dom.png',
+            height: height * 0.16,
+          ),
+          Text(
+            "24",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 40,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
       ),
     );
   }
