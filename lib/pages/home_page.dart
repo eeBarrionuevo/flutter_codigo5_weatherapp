@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
             ),
             Image.asset(
               'assets/images/dom.png',
-              height: height * 0.11,
+              height: height * 0.10,
             ),
             const SizedBox(
               height: 22.0,
@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
                   "24",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: height * 0.08,
+                    fontSize: height * 0.07,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -113,6 +113,9 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(
+              height: 30.0,
+            ),
             Container(
               padding:
                   const EdgeInsets.symmetric(horizontal: 14.0, vertical: 20.0),
@@ -120,25 +123,37 @@ class HomePage extends StatelessWidget {
                 color: Colors.white.withOpacity(0.09),
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Stack(
+                clipBehavior: Clip.none,
                 children: [
-                  Text(
-                    "15 minutes ago",
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 13.0
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "15 minutes ago",
+                        style: TextStyle(
+                            color: Colors.white70,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13.0),
+                      ),
+                      const SizedBox(
+                        height: 6.0,
+                      ),
+                      Text(
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                        maxLines: 2,
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 6.0,
-                  ),
-                  Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                    maxLines: 2,
-                    style: TextStyle(
-                      color: Colors.white,
+                  Positioned(
+                    top: -45,
+                    right: 0,
+                    child: Image.asset(
+                      'assets/images/dom.png',
+                      height: height * 0.1,
                     ),
                   ),
                 ],
