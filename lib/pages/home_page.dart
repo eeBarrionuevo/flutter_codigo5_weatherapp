@@ -6,7 +6,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
@@ -27,17 +26,45 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
+          SizedBox(
+            height: height * 0.03,
+          ),
           Image.asset(
             'assets/images/dom.png',
             height: height * 0.16,
           ),
+          const SizedBox(
+            height: 16.0,
+          ),
           Text(
-            "24",
+            "Cloudy",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 40,
-              fontWeight: FontWeight.w600,
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "24",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: height * 0.08,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(
+                width: 6.0,
+              ),
+              const Text(
+                "°C",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
           ),
         ],
       ),
