@@ -41,12 +41,24 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  _getWeatherLocation() async{
+  _getWeatherLocation(){
     // Position _position = await Geolocator.getCurrentPosition();
     // print(_position.latitude);
     // print(_position.longitude);
-    Geolocator.getCurrentPosition().then((value){
-      print(value);
+    Geolocator.getCurrentPosition().then((position){
+      apiService.getDataWeatherLocation(position).then((value){
+        if(value != null){
+          city = value.name;
+          country = value.sys.country;
+          weatherType = value.weather[0].main;
+          temp = (value.main.temp - 273.15).toStringAsFixed(0);
+          setState(() {
+
+          });
+        }else{
+          print("Hubo un error");
+        }
+      });
     });
   }
 
