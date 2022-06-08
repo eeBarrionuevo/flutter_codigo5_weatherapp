@@ -16,9 +16,6 @@ class APIService{
     if(response.statusCode == 200){
       Map<String, dynamic> myMap = json.decode(response.body);
       WeatherModel weatherModel = WeatherModel.fromJson(myMap);
-      print(weatherModel.name);
-      print(weatherModel.sys.country);
-      print(weatherModel.weather[0].main);
       return weatherModel;
     }
     return null;
