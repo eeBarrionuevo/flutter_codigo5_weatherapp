@@ -27,9 +27,7 @@ class _HomePageState extends State<HomePage> {
   _getDataWeather() {
     String cityName = cityNameController.text;
     isLoading = true;
-    setState(() {
-
-    });
+    setState(() {});
     apiService.getDataWeather(cityName).then((value) {
       if (value != null) {
         city = value.name;
@@ -39,7 +37,16 @@ class _HomePageState extends State<HomePage> {
         isLoading = false;
         setState(() {});
       } else {
-        print("Hubo un error");
+        isLoading = false;
+        setState(() {});
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text(
+              "Hubo un inconveniente, por favor inténtalo nuevamente.",
+            ),
+          ),
+        );
       }
     });
   }
@@ -49,9 +56,7 @@ class _HomePageState extends State<HomePage> {
     // print(_position.latitude);
     // print(_position.longitude);
     isLoading = true;
-    setState(() {
-
-    });
+    setState(() {});
     Geolocator.getCurrentPosition().then((position) {
       apiService.getDataWeatherLocation(position).then((value) {
         if (value != null) {
@@ -62,7 +67,16 @@ class _HomePageState extends State<HomePage> {
           isLoading = false;
           setState(() {});
         } else {
-          print("Hubo un error");
+          isLoading = false;
+          setState(() {});
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.redAccent,
+              content: Text(
+                "Hubo un inconveniente, por favor inténtalo nuevamente.",
+              ),
+            ),
+          );
         }
       });
     });
@@ -235,19 +249,21 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          isLoading ? Container(
-            color: kBrandPrimaryColor.withOpacity(0.95),
-            child: Center(
-              child: SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2.0,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ) : Container(),
+          isLoading
+              ? Container(
+                  color: kBrandPrimaryColor.withOpacity(0.95),
+                  child: Center(
+                    child: SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                )
+              : Container(),
         ],
       ),
     );
