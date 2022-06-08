@@ -21,5 +21,9 @@ class APIService{
     return null;
   }
 
+  getDataWeatherLocation(){
+
+  }
+
 
 }

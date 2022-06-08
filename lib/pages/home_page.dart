@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_codigo5_weatherapp/services/api_service.dart';
 import 'package:flutter_codigo5_weatherapp/ui/general/colors.dart';
 import 'package:flutter_codigo5_weatherapp/ui/widgets/item_forecast_widget.dart';
-
+import 'package:geolocator/geolocator.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   initState(){
     super.initState();
-
+    _getWeatherLocation();
   }
 
   _getDataWeather(){
@@ -41,6 +41,14 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  _getWeatherLocation() async{
+    // Position _position = await Geolocator.getCurrentPosition();
+    // print(_position.latitude);
+    // print(_position.longitude);
+    Geolocator.getCurrentPosition().then((value){
+      print(value);
+    });
+  }
 
 
   @override
