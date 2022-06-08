@@ -15,6 +15,8 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController cityNameController = TextEditingController();
   String city = "";
   String country = "";
+  String weatherType = "";
+  String temp = "";
 
   @override
   initState(){
@@ -28,6 +30,8 @@ class _HomePageState extends State<HomePage> {
       if(value != null){
         city = value.name;
         country = value.sys.country;
+        weatherType = value.weather[0].main;
+        temp = (value.main.temp - 273.15).toStringAsFixed(0);
         setState(() {
 
         });
@@ -74,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                 height: 22.0,
               ),
               Text(
-                "Cloudy",
+                weatherType,
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -83,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "24",
+                    temp,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: height * 0.07,
