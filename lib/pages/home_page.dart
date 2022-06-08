@@ -10,58 +10,56 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   final APIService apiService = APIService();
   final TextEditingController cityNameController = TextEditingController();
-  String city = "";
-  String country = "";
+  String city = "-";
+  String country = "-";
   String weatherType = "";
-  String temp = "";
+  String temp = "0";
+  bool isLoading = true;
 
   @override
-  initState(){
+  initState() {
     super.initState();
     _getWeatherLocation();
   }
 
-  _getDataWeather(){
+  _getDataWeather() {
     String cityName = cityNameController.text;
-    apiService.getDataWeather(cityName).then((value){
-      if(value != null){
+    isLoading = true;
+    apiService.getDataWeather(cityName).then((value) {
+      if (value != null) {
         city = value.name;
         country = value.sys.country;
         weatherType = value.weather[0].main;
         temp = (value.main.temp - 273.15).toStringAsFixed(0);
-        setState(() {
-
-        });
-      }else{
+        isLoading = false;
+        setState(() {});
+      } else {
         print("Hubo un error");
       }
     });
   }
 
-  _getWeatherLocation(){
+  _getWeatherLocation() {
     // Position _position = await Geolocator.getCurrentPosition();
     // print(_position.latitude);
     // print(_position.longitude);
-    Geolocator.getCurrentPosition().then((position){
-      apiService.getDataWeatherLocation(position).then((value){
-        if(value != null){
+    Geolocator.getCurrentPosition().then((position) {
+      apiService.getDataWeatherLocation(position).then((value) {
+        if (value != null) {
           city = value.name;
           country = value.sys.country;
           weatherType = value.weather[0].main;
           temp = (value.main.temp - 273.15).toStringAsFixed(0);
-          setState(() {
-
-          });
-        }else{
+          isLoading = false;
+          setState(() {});
+        } else {
           print("Hubo un error");
         }
       });
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -82,148 +80,165 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0),
-          child: Column(
-            children: [
-              SizedBox(
-                height: height * 0.03,
-              ),
-              Image.asset(
-                'assets/images/dom.png',
-                height: height * 0.10,
-              ),
-              const SizedBox(
-                height: 22.0,
-              ),
-              Text(
-                weatherType,
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14.0),
+              child: Column(
                 children: [
+                  SizedBox(
+                    height: height * 0.03,
+                  ),
+                  Image.asset(
+                    'assets/images/dom.png',
+                    height: height * 0.10,
+                  ),
+                  const SizedBox(
+                    height: 22.0,
+                  ),
                   Text(
-                    temp,
+                    weatherType,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: height * 0.07,
-                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        temp,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: height * 0.07,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 6.0,
+                      ),
+                      const Text(
+                        "°C",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    "$city, $country",
+                    style: TextStyle(
+                      color: Colors.white70,
                     ),
                   ),
                   const SizedBox(
-                    width: 6.0,
+                    height: 20.0,
                   ),
-                  const Text(
-                    "°C",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
+                  TextField(
+                    controller: cityNameController,
+                    decoration: InputDecoration(
+                      hintText: "Enter city name",
+                      filled: true,
+                      fillColor: Colors.white,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide.none,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: BorderSide.none,
+                      ),
+                      suffixIcon: Icon(
+                        Icons.search,
+                      ),
+                    ),
+                    onSubmitted: (value) {
+                      _getDataWeather();
+                    },
+                  ),
+                  const SizedBox(
+                    height: 24.0,
+                  ),
+                  SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        ItemForecastWidget(),
+                        ItemForecastWidget(),
+                        ItemForecastWidget(),
+                        ItemForecastWidget(),
+                        ItemForecastWidget(),
+                        ItemForecastWidget(),
+                      ],
                     ),
                   ),
-                ],
-              ),
-              Text(
-                "$city, $country",
-                style: TextStyle(
-                  color: Colors.white70,
-                ),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              TextField(
-                controller: cityNameController,
-                decoration: InputDecoration(
-                  hintText: "Enter city name",
-                  filled: true,
-                  fillColor: Colors.white,
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide.none,
+                  const SizedBox(
+                    height: 30.0,
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide.none,
-                  ),
-                  suffixIcon: Icon(
-                    Icons.search,
-                  ),
-                ),
-                onSubmitted: (value){
-                  _getDataWeather();
-                },
-              ),
-              const SizedBox(
-                height: 24.0,
-              ),
-              SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ItemForecastWidget(),
-                    ItemForecastWidget(),
-                    ItemForecastWidget(),
-                    ItemForecastWidget(),
-                    ItemForecastWidget(),
-                    ItemForecastWidget(),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 30.0,
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 14.0, vertical: 20.0),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.09),
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14.0, vertical: 20.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.09),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    child: Stack(
+                      clipBehavior: Clip.none,
                       children: [
-                        Text(
-                          "15 minutes ago",
-                          style: TextStyle(
-                              color: Colors.white70,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 13.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "15 minutes ago",
+                              style: TextStyle(
+                                  color: Colors.white70,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 13.0),
+                            ),
+                            const SizedBox(
+                              height: 6.0,
+                            ),
+                            Text(
+                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(
-                          height: 6.0,
-                        ),
-                        Text(
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                          maxLines: 2,
-                          style: TextStyle(
-                            color: Colors.white,
+                        Positioned(
+                          top: -45,
+                          right: 0,
+                          child: Image.asset(
+                            'assets/images/dom.png',
+                            height: height * 0.1,
                           ),
                         ),
                       ],
                     ),
-                    Positioned(
-                      top: -45,
-                      right: 0,
-                      child: Image.asset(
-                        'assets/images/dom.png',
-                        height: height * 0.1,
-                      ),
-                    ),
-                  ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          isLoading ? Container(
+            color: kBrandPrimaryColor.withOpacity(0.95),
+            child: Center(
+              child: SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.0,
+                  color: Colors.white,
                 ),
               ),
-            ],
-          ),
-        ),
+            ),
+          ) : Container(),
+        ],
       ),
     );
   }

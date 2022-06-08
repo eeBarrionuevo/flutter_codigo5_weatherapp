@@ -11,7 +11,7 @@ class APIService{
   //Terminar de implementar la función
 
   Future<WeatherModel?> getDataWeather(String cityName) async{
-    String path = "https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=22ba7a8b1469e0947bdc757870693292";
+    String path = "https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=";
     Uri _uri = Uri.parse(path);
     http.Response response = await http.get(_uri);
     if(response.statusCode == 200){
