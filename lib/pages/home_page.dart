@@ -27,6 +27,9 @@ class _HomePageState extends State<HomePage> {
   _getDataWeather() {
     String cityName = cityNameController.text;
     isLoading = true;
+    setState(() {
+
+    });
     apiService.getDataWeather(cityName).then((value) {
       if (value != null) {
         city = value.name;
@@ -45,6 +48,10 @@ class _HomePageState extends State<HomePage> {
     // Position _position = await Geolocator.getCurrentPosition();
     // print(_position.latitude);
     // print(_position.longitude);
+    isLoading = true;
+    setState(() {
+
+    });
     Geolocator.getCurrentPosition().then((position) {
       apiService.getDataWeatherLocation(position).then((value) {
         if (value != null) {
@@ -64,6 +71,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    print("BUILD!!");
     return Scaffold(
       backgroundColor: kBrandPrimaryColor,
       appBar: AppBar(
@@ -73,7 +81,9 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: kBrandPrimaryColor,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              _getWeatherLocation();
+            },
             icon: Icon(
               Icons.location_on,
             ),
